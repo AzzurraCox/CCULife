@@ -171,6 +171,8 @@ public class CCUScheduleActivity extends BaseActivity {
             if (position != 0 && item.Date.compareTo(items[position - 1].Date) == 0)
                 date = "";
 
+            // new sem
+
             view.setBackgroundColor(background);
             dateView.setText(date);
             titleView.setText(item.Title);

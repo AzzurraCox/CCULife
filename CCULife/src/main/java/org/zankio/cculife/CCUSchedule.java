@@ -22,8 +22,8 @@ public class CCUSchedule {
         this.context = context;
     }
 
-    public static final String[] SCHEDULE_TITLE = {"106學年度"};
-    public static final String[] SCHEDULE_FILE = {"schedule/107schedule"};
+    public static final String[] SCHEDULE_TITLE = {"107學年度"};
+    public static final String[] SCHEDULE_FILE = {"schedule/108schedule"};
 
     private String getScheduleRawDate(String fileName) {
         InputStream is;
@@ -97,7 +97,7 @@ public class CCUSchedule {
         }
 
         public String toDateString() {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM / dd", Locale.US);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM / dd", Locale.TAIWAN);
             return String.format("%s (%s)",
                     simpleDateFormat.format(this.Date.getTime()),
                     weekName.charAt(this.Date.get(Calendar.DAY_OF_WEEK) - 1));
