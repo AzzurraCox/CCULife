@@ -21,7 +21,7 @@ public class KikiCourseAsset {
         this.context = context;
     }
 
-    public final static String COURSE_FILE = "courses/10501";
+    public final static String COURSE_FILE = "courses/10702";
 
     @NonNull
     private String getAssetRawData(String fileName) {

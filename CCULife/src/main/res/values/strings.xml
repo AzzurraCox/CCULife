@@ -16,6 +16,7 @@
     <string name="title_file">檔案</string>
     <string name="title_homework">作業</string>
     <string name="title_roll_call">點名</string>
+    <string name="title_classmate">同學</string>
 
     <string name="title_activity_course_schedule">CourseSchedule</string>
     <string name="title_timetable_week">每周課表</string>
