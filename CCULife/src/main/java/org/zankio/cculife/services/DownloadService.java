@@ -132,22 +132,14 @@ public class DownloadService extends IntentService {
         try {
             Ion.with(this)
                 .load(url)
-                .progress(new ProgressCallback() {
-                    @Override
-                    public void onProgress(long downloaded, long total) {
-                        DownloadService.notify(DownloadService.this, mNotifyManager, mBuilder, currentId, (int) total, (int) downloaded);
-                    }
-                })
+                .progress((downloaded, total) -> notify(DownloadService.this, mNotifyManager, mBuilder, currentId, (int) total, (int) downloaded))
                 .write(new File(path, filename))
-                .setCallback(new FutureCallback<File>() {
-                    @Override
-                    public void onCompleted(Exception e, File file) {
-                        if (e != null) {
-                            e.printStackTrace();
-                            DownloadService.notify(DownloadService.this, mNotifyManager, mBuilder, currentId, State.Error, notifyErrorIntent);
-                        } else
-                            DownloadService.notify(DownloadService.this, mNotifyManager, mBuilder, currentId, State.Finished, notifyFinishIntent);
-                    }
+                .setCallback((e, file) -> {
+                    if (e != null) {
+                        e.printStackTrace();
+                        notify(DownloadService.this, mNotifyManager, mBuilder, currentId, State.Error, notifyErrorIntent);
+                    } else
+                        notify(DownloadService.this, mNotifyManager, mBuilder, currentId, State.Finished, notifyFinishIntent);
                 }).get();
         } catch (Exception e) {
             e.printStackTrace();

@@ -28,25 +28,22 @@ public class AboutActivity extends BaseActivity {
         ((TextView)findViewById(R.id.title)).setText("CCULife v" + getVersionName(this));
     }
 
-    public final View.OnClickListener dbg_click = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (debug_mode_index == debug_mode_click.length || v == null) return;
+    public final View.OnClickListener dbg_click = v -> {
+        if (debug_mode_index == debug_mode_click.length || v == null) return;
 
-            if (v.getId() != debug_mode_click[debug_mode_index]) {
-                debug_mode_index = 0;
-                return;
-            }
-
-            debug_mode_index++;
-
-            if (debug_mode_index == debug_mode_click.length) {
-                Debug.debug = true;
-                Toast.makeText(AboutActivity.this, "Debug Mode : On", Toast.LENGTH_SHORT).show();
-            }
-
-
+        if (v.getId() != debug_mode_click[debug_mode_index]) {
+            debug_mode_index = 0;
+            return;
         }
+
+        debug_mode_index++;
+
+        if (debug_mode_index == debug_mode_click.length) {
+            Debug.debug = true;
+            Toast.makeText(AboutActivity.this, "Debug Mode : On", Toast.LENGTH_SHORT).show();
+        }
+
+
     };
 
     @Override
