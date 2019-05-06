@@ -47,6 +47,23 @@ Just enjoy!
 
 ## Release Notes
 
+### 3rd maintenance
+May 06,2019
+* (prepare) next sem course list
+* (remove) some old useless file
+* (update) 108 CCU Schedule
+* (debug) check compatibility for some Phone
+
+### 2nd maintenance
+Mar 06,2019
+* (update) 107-2 course list
+
+### 1st maintenance
+Nov 2018
+* (update) 107-1 course list
+* (update) 107 CCU Schedule
+* (debug) download error solve
+
 ### v2.0
 Set 15, 2016
 
