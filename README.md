@@ -62,7 +62,7 @@ Mar 06,2019
 Nov 2018
 * (update) 107-1 course list
 * (update) 107 CCU Schedule
-* (debug) download error solve
+* (debug) download error
 
 ### v2.0
 Set 15, 2016
