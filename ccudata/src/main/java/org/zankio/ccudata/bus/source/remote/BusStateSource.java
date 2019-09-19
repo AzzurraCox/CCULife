@@ -1,5 +1,7 @@
 package org.zankio.ccudata.bus.source.remote;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,6 +69,12 @@ public class BusStateSource extends HTTPJSONSource<BusLineRequest, BusStop[]> {
                                 busLineData.isReturn
                         )
                 );
+        Log.d("busLineData.busNo",String.format(
+                URL_BUS_PREDICTION_TIME,
+                busLineData.busNo,
+                busLineData.branch,
+                busLineData.isReturn
+        ));
     }
 
     @Override
