@@ -107,13 +107,13 @@ public abstract class HTTPSource<TArgument, TData> extends FetchParseSource<TArg
                 cookieHeader.append(key).append("=").append(value).append(";");
         }
         Log.d("sauth", Signature.Sauth());
-        boolean check = true;
+
         if (cookieHeader.length() != 0)
             builder.header("Cookie", cookieHeader.toString());
-        else if (Signature.check() == check){
+        if (Signature.check()){
+            Log.d("signature_check","run");
             builder.addHeader("Authorization", Signature.Sauth());
             builder.addHeader("x-date", Signature.getServerTime());
-            check = false;
         }
 
         return builder.url(url.build()).build();

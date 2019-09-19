@@ -13,6 +13,7 @@ import org.zankio.ccudata.base.source.annotation.DataType;
 import org.zankio.ccudata.base.source.annotation.Important;
 import org.zankio.ccudata.base.source.annotation.Order;
 import org.zankio.ccudata.base.source.http.HTTPJSONSource;
+import org.zankio.ccudata.base.source.http.Signature;
 import org.zankio.ccudata.base.source.http.annotation.Method;
 import org.zankio.ccudata.train.model.TrainRequest;
 import org.zankio.ccudata.train.model.TrainTimetable;
@@ -58,6 +59,8 @@ public class PTXTrainTrainLineTypeSource extends HTTPJSONSource<TrainRequest, Tr
                         )
                 )
                 .queryStrings("$format", "JSON");
+
+        Signature.acheck = 1;
         Log.d("logrequest2",String.format(URL_TRAIN_DAILY_TIMETABLE,trainRequest.date));
         Log.d("logrequest21",simpleDateFormat.format(calendar.getTime()));
         Log.d("logrequest22",trainRequest.no);

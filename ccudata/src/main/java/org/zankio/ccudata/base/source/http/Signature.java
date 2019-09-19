@@ -3,30 +3,19 @@ package org.zankio.ccudata.base.source.http;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.net.HttpURLConnection;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.security.SignatureException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.zip.GZIPInputStream;
 
-import org.zankio.ccudata.train.model.SslUtils;
 import org.zankio.ccudata.train.model.HMAC_SHA1;
 
 
 
 public class Signature {
+
+    public static int acheck;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static String Sauth() {
@@ -54,8 +43,16 @@ public class Signature {
     }
 
     public static boolean check() {
-        return true;
+        int checks = acheck;
+        if (checks == 1)
+        {
+            acheck = 0;
+            return true;
+        }
+        else
+        return false;
     }
+
 
     public static String getServerTime() {
         Calendar calendar = Calendar.getInstance();
