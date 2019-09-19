@@ -19,13 +19,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '25.0.3'
 
     defaultConfig {
 
-        minSdkVersion 9
-        targetSdkVersion 25
+        minSdkVersion 14
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
@@ -64,10 +64,11 @@ configurations {
 dependencies {
     provided fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    testCompile 'org.json:json:20160810'
+    //testCompile 'org.json:json:20160810'
+    testCompile 'org.json:json:20190722'
     androidTestCompile 'com.android.support.test:runner:0.5'
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
 
     // html parse library
     compile 'org.jsoup:jsoup:1.10.3'
@@ -77,8 +78,8 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
 
     //ok http library
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
-
+    //compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okhttp3:okhttp:4.2.0'
     // date parse library
     compile 'com.joestelmach:natty:0.13'
 
