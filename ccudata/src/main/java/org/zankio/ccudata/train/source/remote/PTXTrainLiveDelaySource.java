@@ -33,7 +33,7 @@ import java.util.Map;
 @DataType(PTXTrainLiveDelaySource.TYPE)
 public class PTXTrainLiveDelaySource extends HTTPJSONSource<TrainRequest, TrainTimetable>{
     public final static String TYPE = "TRAIN_LIVE_DELAY";
-    private static final String URL_TRAIN_DELAY = "https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/LiveBoard/%s";
+    private static final String URL_TRAIN_DELAY = "https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/LiveBoard/Station/%s";
     private static final Map<String, String> trainClassification = new HashMap<>();
     static {
         trainClassification.put("1115", "莒光");
@@ -111,7 +111,7 @@ public class PTXTrainLiveDelaySource extends HTTPJSONSource<TrainRequest, TrainT
             item.delay = parseDelay(traininfo.getString("DelayTime"));
             item.to = traininfo.getJSONObject("EndingStationName").getString("Zh_tw");
             item.departure = traininfo.getString("ScheduledDepartureTime").substring(0, 5);
-            item.trainType = parseTrainClassification(traininfo.getString("TrainClassificationID"));
+            item.trainType = parseTrainClassification(traininfo.getString("TrainTypeID"));
 
             //Log.d("direction", traininfo.getString("Direction"));
             if (traininfo.getInt("Direction") == 0) up.add(item);
