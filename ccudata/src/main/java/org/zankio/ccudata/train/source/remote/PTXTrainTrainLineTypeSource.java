@@ -35,7 +35,7 @@ import java.util.Locale;
 @DataType(PTXTrainTrainLineTypeSource.TYPE)
 public class PTXTrainTrainLineTypeSource extends HTTPJSONSource<TrainRequest, TrainTimetable>{
     public final static String TYPE = "TRAIN_LINE_TYPE";
-    private static final String URL_TRAIN_DAILY_TIMETABLE = "https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/DailyTimetable/Today/%s";
+    private static final String URL_TRAIN_DAILY_TIMETABLE = "https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/DailyTimetable/Today";
     public static Request<TrainTimetable, TrainRequest> request(String no, String date) {
         return new Request<>(TYPE, new TrainRequest(no, date), TrainTimetable.class);
     }
@@ -51,7 +51,7 @@ public class PTXTrainTrainLineTypeSource extends HTTPJSONSource<TrainRequest, Tr
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
         //httpParameter(request).url("https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/DailyTimetable/Today?$filter=StopTimes%2Fany(d%3Ad%2FStationID%20eq%20'1214'%20and%20d%2FDepartureTime%20ge%20'21%3A00%3A00')&$top=30&$format=JSON");
         httpParameter(request)
-                .url(String.format(URL_TRAIN_DAILY_TIMETABLE, trainRequest.date))
+                .url(URL_TRAIN_DAILY_TIMETABLE)
                 .queryStrings(
                         "$filter",
                         String.format(
