@@ -17,6 +17,7 @@ import org.zankio.ccudata.base.source.http.annotation.Method;
 import org.zankio.ccudata.train.model.TrainRequest;
 import org.zankio.ccudata.train.model.TrainTimetable;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -77,6 +78,7 @@ public class PTXTrainStationTimetableSource extends HTTPJSONSource<TrainRequest,
             item.departure = traininfo.getString("DepartureTime").substring(0, 5);
             item.trainType = parseTrainClassification(traininfo.getJSONObject("TrainTypeName").getString("Zh_tw"));
 
+            //Log.d("direction", traininfo.getString("Direction"));
             if (traininfo.getInt("Direction") == 0) up.add(item);
             else down.add(item);
         }

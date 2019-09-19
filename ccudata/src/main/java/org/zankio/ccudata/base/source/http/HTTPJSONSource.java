@@ -15,15 +15,16 @@ public abstract class HTTPJSONSource<TArgument, TData> extends HTTPSource<TArgum
     protected TData parse(Request<TData, TArgument> request, HttpResponse response) throws Exception {
         String jsonBody = response.string();
         JSON json;
-        Log.d("json_log", jsonBody);
 
         if ( jsonBody.startsWith("<")){
             return null;
         }
         if (jsonBody.startsWith("[")) {
+            Log.d("json_log", jsonBody);
             json = new JSON(new JSONArray(jsonBody));
         }
         else {
+            Log.d("json_log", jsonBody);
             json = new JSON(new JSONObject(jsonBody));
         }
         return parse(request, response, json);

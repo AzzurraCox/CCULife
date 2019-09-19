@@ -27,7 +27,7 @@ import org.zankio.ccudata.bus.model.BusStop;
 public class BusStateSource extends HTTPJSONSource<BusLineRequest, BusStop[]> {
     public static final String TYPE = "BUS_STATE";
     private static final String URL_BUS_PREDICTION_TIME =
-            "http://www.taiwanbus.tw/app_api/SP_PredictionTime_N.ashx" +
+            "https://www.taiwanbus.tw/app_api/SP_PredictionTime_N.ashx" +
                     "?routeNo=%s" +
                     "&branch=%s" +
                     "&goBack=%s" +
@@ -69,12 +69,12 @@ public class BusStateSource extends HTTPJSONSource<BusLineRequest, BusStop[]> {
                                 busLineData.isReturn
                         )
                 );
-        Log.d("busLineData.busNo",String.format(
+       /* Log.d("busLineData.busNo",String.format(
                 URL_BUS_PREDICTION_TIME,
                 busLineData.busNo,
                 busLineData.branch,
                 busLineData.isReturn
-        ));
+        ));*/
     }
 
     @Override

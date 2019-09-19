@@ -18,6 +18,7 @@ import org.zankio.ccudata.base.source.http.annotation.Method;
 import org.zankio.ccudata.train.model.TrainRequest;
 import org.zankio.ccudata.train.model.TrainTimetable;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,6 +49,7 @@ public class PTXTrainTrainLineTypeSource extends HTTPJSONSource<TrainRequest, Tr
         calendar.set(Calendar.SECOND, 0);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
+        //httpParameter(request).url("https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/DailyTimetable/Today?$filter=StopTimes%2Fany(d%3Ad%2FStationID%20eq%20'1214'%20and%20d%2FDepartureTime%20ge%20'21%3A00%3A00')&$top=30&$format=JSON");
         httpParameter(request)
                 .url(String.format(URL_TRAIN_DAILY_TIMETABLE, trainRequest.date))
                 .queryStrings(
@@ -79,6 +81,7 @@ public class PTXTrainTrainLineTypeSource extends HTTPJSONSource<TrainRequest, Tr
             item.trainNo = traininfo.getString("TrainNo");
             item.lineType = parseLineType(traininfo.getInt("TripLine"));
 
+            //Log.d("direction", traininfo.getString("Direction"));
             if (traininfo.getInt("Direction") == 0) up.add(item);
             else down.add(item);
         }

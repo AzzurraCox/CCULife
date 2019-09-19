@@ -106,7 +106,7 @@ public abstract class HTTPSource<TArgument, TData> extends FetchParseSource<TArg
             for(String value: values)
                 cookieHeader.append(key).append("=").append(value).append(";");
         }
-        Log.d("sauth", Signature.Sauth());
+        //Log.d("sauth", Signature.Sauth());
 
         if (cookieHeader.length() != 0)
             builder.header("Cookie", cookieHeader.toString());

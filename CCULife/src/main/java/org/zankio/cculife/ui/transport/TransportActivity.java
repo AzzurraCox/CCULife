@@ -118,6 +118,7 @@ public class TransportActivity extends BaseActivity
             //Observable<Response<TrainTimetable, TrainRequest>> web = train.fetch(TrainStopStatusSource.request(code, formatWeb.format(date)));
             observable =
                     train.fetch(PTXTrainStationTimetableSource.request(code, format.format(date)))
+                    //train.fetch(PTXTrainTrainLineTypeSource.request(code, format.format(date)))
                             .concatWith(train.fetch(PTXTrainTrainLineTypeSource.request(code, format.format(date))))
                             .concatWith(train.fetch(PTXTrainLiveDelaySource.request(code)))
                             .reduce((r1, r2) -> {

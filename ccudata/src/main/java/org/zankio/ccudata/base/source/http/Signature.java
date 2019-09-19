@@ -37,7 +37,7 @@ public class Signature {
             e1.printStackTrace();
         }
 
-        System.out.println("Signature :" + Signature);
+        //System.out.println("Signature :" + Signature);
       return  sAuth = "hmac username=\"" + APPID + "\", algorithm=\"hmac-sha1\", headers=\"x-date\", signature=\"" + Signature + "\"";
 
     }

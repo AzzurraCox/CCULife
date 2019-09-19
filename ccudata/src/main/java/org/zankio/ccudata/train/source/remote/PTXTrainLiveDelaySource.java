@@ -1,5 +1,7 @@
 package org.zankio.ccudata.train.source.remote;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +18,7 @@ import org.zankio.ccudata.base.source.http.annotation.Method;
 import org.zankio.ccudata.train.model.TrainRequest;
 import org.zankio.ccudata.train.model.TrainTimetable;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -86,6 +89,7 @@ public class PTXTrainLiveDelaySource extends HTTPJSONSource<TrainRequest, TrainT
         httpParameter(request)
                 .url(String.format(URL_TRAIN_DELAY, trainRequest.no))
                 .queryStrings("$format", "JSON");
+        Log.d("LiveBoard", String.format(URL_TRAIN_DELAY, trainRequest.no));
         Signature.acheck = 1;
     }
 
@@ -94,6 +98,9 @@ public class PTXTrainLiveDelaySource extends HTTPJSONSource<TrainRequest, TrainT
         TrainTimetable trainTimetable = new TrainTimetable();
         List<TrainTimetable.Item> up = new ArrayList<>();
         List<TrainTimetable.Item> down = new ArrayList<>();
+
+
+            Log.d("PTXTrainLive", json.toString());
 
         JSONArray traininfos = json.array();
         for (int i = traininfos.length() - 1; i >= 0; i--) {
@@ -106,6 +113,7 @@ public class PTXTrainLiveDelaySource extends HTTPJSONSource<TrainRequest, TrainT
             item.departure = traininfo.getString("ScheduledDepartureTime").substring(0, 5);
             item.trainType = parseTrainClassification(traininfo.getString("TrainClassificationID"));
 
+            //Log.d("direction", traininfo.getString("Direction"));
             if (traininfo.getInt("Direction") == 0) up.add(item);
             else down.add(item);
         }
