@@ -1,5 +1,6 @@
 package org.zankio.ccudata.train.source.remote;
 
+import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +57,7 @@ public class PTXTrainStationTimetableSource extends HTTPJSONSource<TrainRequest,
                         )
                 )
                 .queryStrings("$orderby", "DepartureTime");
+        Log.d("logrequest",String.format(URL_TRAIN_TIMETABLE, trainRequest.no, trainRequest.date));
     }
 
     @Override
@@ -71,7 +73,7 @@ public class PTXTrainStationTimetableSource extends HTTPJSONSource<TrainRequest,
             item.trainNo = traininfo.getString("TrainNo");
             item.to = traininfo.getString("EndingStationName");
             item.departure = traininfo.getString("DepartureTime").substring(0, 5);
-            item.trainType = parseTrainClassification(traininfo.getString("TrainClassificationName"));
+            item.trainType = parseTrainClassification(traininfo.getJSONObject("TrainTypeName").getString("Zh_tw"));
 
             if (traininfo.getInt("Direction") == 0) up.add(item);
             else down.add(item);

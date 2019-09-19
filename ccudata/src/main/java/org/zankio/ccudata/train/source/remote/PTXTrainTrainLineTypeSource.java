@@ -1,5 +1,7 @@
 package org.zankio.ccudata.train.source.remote;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +33,7 @@ import java.util.Locale;
 @DataType(PTXTrainTrainLineTypeSource.TYPE)
 public class PTXTrainTrainLineTypeSource extends HTTPJSONSource<TrainRequest, TrainTimetable>{
     public final static String TYPE = "TRAIN_LINE_TYPE";
-    private static final String URL_TRAIN_DAILY_TIMETABLE = "https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/DailyTimetable/%s";
+    private static final String URL_TRAIN_DAILY_TIMETABLE = "https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/DailyTimetable/Today/%s";
     public static Request<TrainTimetable, TrainRequest> request(String no, String date) {
         return new Request<>(TYPE, new TrainRequest(no, date), TrainTimetable.class);
     }
@@ -56,6 +58,9 @@ public class PTXTrainTrainLineTypeSource extends HTTPJSONSource<TrainRequest, Tr
                         )
                 )
                 .queryStrings("$format", "JSON");
+        Log.d("logrequest2",String.format(URL_TRAIN_DAILY_TIMETABLE,trainRequest.date));
+        Log.d("logrequest21",simpleDateFormat.format(calendar.getTime()));
+        Log.d("logrequest22",trainRequest.no);
     }
 
     @Override

@@ -115,7 +115,7 @@ public class TransportActivity extends BaseActivity
             Date date = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             SimpleDateFormat formatWeb = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
-            Observable<Response<TrainTimetable, TrainRequest>> web = train.fetch(TrainStopStatusSource.request(code, formatWeb.format(date)));
+            //Observable<Response<TrainTimetable, TrainRequest>> web = train.fetch(TrainStopStatusSource.request(code, formatWeb.format(date)));
             observable =
                     train.fetch(PTXTrainStationTimetableSource.request(code, format.format(date)))
                             .concatWith(train.fetch(PTXTrainTrainLineTypeSource.request(code, format.format(date))))
@@ -150,7 +150,7 @@ public class TransportActivity extends BaseActivity
 
                                 return r1.data(timetable);
                             })
-                            .onErrorResumeNext(web)
+                            /*.onErrorResumeNext(web)*/
                             .cache();
             mCache.set(key, observable, CACHE_TIME);
         }

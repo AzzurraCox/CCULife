@@ -98,6 +98,7 @@ public class DownloadService extends IntentService {
         return PendingIntent.getService(this, id, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @TargetApi(Build.VERSION_CODES.FROYO)
     @Override
     protected void onHandleIntent(Intent intent) {

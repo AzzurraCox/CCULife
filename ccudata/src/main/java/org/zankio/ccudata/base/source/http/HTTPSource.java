@@ -1,5 +1,9 @@
 package org.zankio.ccudata.base.source.http;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.util.Log;
+
 import org.zankio.ccudata.base.model.CookieJar;
 import org.zankio.ccudata.base.model.HttpResponse;
 import org.zankio.ccudata.base.model.OkHttpResponse;
@@ -65,6 +69,7 @@ public abstract class HTTPSource<TArgument, TData> extends FetchParseSource<TArg
         return builder.build();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private okhttp3.Request makeRequest(HTTPParameter parameter) {
         okhttp3.Request.Builder builder = new okhttp3.Request.Builder();
         String urlString = parameter.url();
@@ -101,9 +106,15 @@ public abstract class HTTPSource<TArgument, TData> extends FetchParseSource<TArg
             for(String value: values)
                 cookieHeader.append(key).append("=").append(value).append(";");
         }
-
+        Log.d("sauth", Signature.Sauth());
+        boolean check = true;
         if (cookieHeader.length() != 0)
             builder.header("Cookie", cookieHeader.toString());
+        else if (Signature.check() == check){
+            builder.addHeader("Authorization", Signature.Sauth());
+            builder.addHeader("x-date", Signature.getServerTime());
+            check = false;
+        }
 
         return builder.url(url.build()).build();
     }

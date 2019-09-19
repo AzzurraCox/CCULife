@@ -214,7 +214,7 @@ public class CourseListFragment extends BaseMessageFragment {
 
             ((TextView)view.findViewById(R.id.unread)).setText(String.format(Locale.US, "%d", course.notice + course.homework + course.exam));
 
-            if (ignore_ecourse_warnning) {
+            if (ignore_ecourse_warnning != true) {
                 int color = ContextCompat.getColor(getContext(), R.color.Red_Course_Warring);
                 view.findViewById(R.id.warring).setBackgroundColor(course.warning ? color : 0);
             }
