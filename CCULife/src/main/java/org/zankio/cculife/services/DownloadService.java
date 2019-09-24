@@ -134,6 +134,8 @@ public class DownloadService extends IntentService {
         mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "CCULife Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+                    //notificationChannel.enableVibration(true);
+
             mNotifyManager.createNotificationChannel(notificationChannel);
 
             mBuilder2 = new Notification.Builder(this,NOTIFICATION_CHANNEL_ID);
@@ -161,9 +163,9 @@ public class DownloadService extends IntentService {
         }
         else {
             //mBuilder = new NotificationCompat.Builder(this);
-            mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                    .setVibrate(new long[]{0, 100, 100, 100, 100, 100})
-                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+            mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+                    //.setVibrate(new long[]{0, 100, 100, 100, 100, 100});
+                    //.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
             DownloadService.notify(this, mNotifyManager, mBuilder, currentId, filename);
             notifyFinishIntent = generateOpenFilePendingIntent(currentId, path.getAbsolutePath(), filename, "finish");
             notifyErrorIntent = generateOpenFilePendingIntent(currentId, path.getAbsolutePath(), filename, "error");
