@@ -3,6 +3,7 @@ package org.zankio.cculife.services;
 import android.annotation.TargetApi;
 import android.app.IntentService;
 import android.app.NotificationManager;
+import android.app.NotificationChannel;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.media.RingtoneManager;
 
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -43,6 +45,8 @@ public class DownloadService extends IntentService {
     public DownloadService() {
         super(TAG);
     }
+
+    private static final String NOTIFICATION_CHANNEL_ID = "CCULife";
 
     public boolean checkSSL() {
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(this);
@@ -92,6 +96,7 @@ public class DownloadService extends IntentService {
         data.putString("path", path);
         data.putString("filename", filename);
         data.putString("state", state);
+        data.putString("channelId","CCULife");
 
         notifyIntent.putExtras(data);
         if ("error".equals(state)) id = (id + 1) * -1;
@@ -121,11 +126,18 @@ public class DownloadService extends IntentService {
 
         path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "CCULife Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+            mNotifyManager.createNotificationChannel(notificationChannel);
+        }
 
         if (!path.exists())
             path.mkdir();
 
-        mBuilder = new NotificationCompat.Builder(this);
+        //mBuilder = new NotificationCompat.Builder(this);
+        mBuilder = new NotificationCompat.Builder(this,NOTIFICATION_CHANNEL_ID)
+                .setVibrate(new long[]{0, 100, 100, 100, 100, 100})
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
         DownloadService.notify(this, mNotifyManager, mBuilder, currentId, filename);
         notifyFinishIntent = generateOpenFilePendingIntent(currentId, path.getAbsolutePath(), filename, "finish");
         notifyErrorIntent = generateOpenFilePendingIntent(currentId, path.getAbsolutePath(), filename, "error");
