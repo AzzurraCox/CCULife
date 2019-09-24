@@ -33,6 +33,7 @@ public abstract class HTTPSource<TArgument, TData> extends FetchParseSource<TArg
     public static Map<String, SSLSocketFactory> sslSocketFactory = new HashMap<>();
     public static Map<String, X509TrustManager> trustManager = new HashMap<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected HttpResponse fetch(Request<TData, TArgument> request, boolean inner) throws Exception {
         initHTTPRequest(request);

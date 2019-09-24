@@ -115,7 +115,7 @@ public class TransportActivity extends BaseActivity
             Date date = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             SimpleDateFormat formatWeb = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
-            //Observable<Response<TrainTimetable, TrainRequest>> web = train.fetch(TrainStopStatusSource.request(code, formatWeb.format(date)));
+            Observable<Response<TrainTimetable, TrainRequest>> web = train.fetch(TrainStopStatusSource.request(code, formatWeb.format(date)));
             observable =
                     train.fetch(PTXTrainStationTimetableSource.request(code, format.format(date)))
                     //train.fetch(PTXTrainTrainLineTypeSource.request(code, format.format(date)))
