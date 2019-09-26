@@ -11,6 +11,8 @@ android {
         targetSdkVersion 28
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        versionName = '2.0.10'
+        versionCode = 1
     }
     buildTypes {
         release {
