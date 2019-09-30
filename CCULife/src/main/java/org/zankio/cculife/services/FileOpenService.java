@@ -2,6 +2,7 @@ package org.zankio.cculife.services;
 
 import android.annotation.TargetApi;
 import android.app.IntentService;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +24,8 @@ public class FileOpenService extends IntentService {
         handler = new Handler();
     }
 
+    private static final String NOTIFICATION_CHANNEL_ID = "CCULife";
+
     @TargetApi(Build.VERSION_CODES.FROYO)
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -32,6 +35,12 @@ public class FileOpenService extends IntentService {
 
         map = MimeTypeMap.getSingleton();
         mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "CCULife Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+
+            mNotifyManager.createNotificationChannel(notificationChannel);
+        }
 
         Bundle data = intent.getExtras();
         String state = data.getString("state");
