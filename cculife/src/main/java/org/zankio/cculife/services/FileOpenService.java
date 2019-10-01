@@ -38,7 +38,7 @@ public class FileOpenService extends IntentService {
         mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "CCULife Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "CCULife", NotificationManager.IMPORTANCE_DEFAULT);
 
             mNotifyManager.createNotificationChannel(notificationChannel);
         }

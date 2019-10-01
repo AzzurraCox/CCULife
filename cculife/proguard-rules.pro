@@ -66,3 +66,4 @@
     long producerNode;
     long consumerNode;
 }
+-keep class androidx.*
