@@ -131,44 +131,42 @@ public class DownloadService extends IntentService {
         if (!path.exists())
             path.mkdir();
 
+        notifyFinishIntent = generateOpenFilePendingIntent(currentId, path.getAbsolutePath(), filename, "finish");
+        notifyErrorIntent = generateOpenFilePendingIntent(currentId, path.getAbsolutePath(), filename, "error");
         mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "CCULife Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "CCULife", NotificationManager.IMPORTANCE_DEFAULT);
                     //notificationChannel.enableVibration(true);
 
             mNotifyManager.createNotificationChannel(notificationChannel);
 
-            mBuilder2 = new Notification.Builder(this,NOTIFICATION_CHANNEL_ID);
-            DownloadService.notify2(this, mNotifyManager, mBuilder2, currentId, filename);
-
-            notifyFinishIntent = generateOpenFilePendingIntent(currentId, path.getAbsolutePath(), filename, "finish");
-            notifyErrorIntent = generateOpenFilePendingIntent(currentId, path.getAbsolutePath(), filename, "error");
+            mBuilder = new NotificationCompat.Builder(this,NOTIFICATION_CHANNEL_ID);
+            DownloadService.notify2(this, mNotifyManager, mBuilder, currentId, filename);
 
             try {
                 Ion.with(this)
                         .load(url)
-                        .progress((downloaded, total) -> notify2(DownloadService.this, mNotifyManager, mBuilder2, currentId, (int) total, (int) downloaded))
+                        .progress((downloaded, total) -> notify2(DownloadService.this, mNotifyManager, mBuilder, currentId, (int) total, (int) downloaded))
                         .write(new File(path, filename))
                         .setCallback((e, file) -> {
                             if (e != null) {
                                 e.printStackTrace();
-                                notify2(DownloadService.this, mNotifyManager, mBuilder2, currentId, State.Error, notifyErrorIntent);
+                                notify2(DownloadService.this, mNotifyManager, mBuilder, currentId, State.Error, notifyErrorIntent);
                             } else
-                                notify2(DownloadService.this, mNotifyManager, mBuilder2, currentId, State.Finished, notifyFinishIntent);
+                                notify2(DownloadService.this, mNotifyManager, mBuilder, currentId, State.Finished, notifyFinishIntent);
                         }).get();
             } catch (Exception e) {
                 e.printStackTrace();
-                DownloadService.notify2(this, mNotifyManager, mBuilder2, currentId, State.Error, notifyErrorIntent);
+                DownloadService.notify2(this, mNotifyManager, mBuilder, currentId, State.Error, notifyErrorIntent);
             }
         }
         else {
             //mBuilder = new NotificationCompat.Builder(this);
-            mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+            mBuilder = new NotificationCompat.Builder(this, null);
                     //.setVibrate(new long[]{0, 100, 100, 100, 100, 100});
                     //.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
             DownloadService.notify(this, mNotifyManager, mBuilder, currentId, filename);
-            notifyFinishIntent = generateOpenFilePendingIntent(currentId, path.getAbsolutePath(), filename, "finish");
-            notifyErrorIntent = generateOpenFilePendingIntent(currentId, path.getAbsolutePath(), filename, "error");
 
             try {
                 Ion.with(this)
@@ -225,7 +223,7 @@ public class DownloadService extends IntentService {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private static void notify2 (Context context, NotificationManager mNotifyManager, Notification.Builder builder, int id, String filename) {
+    private static void notify2 (Context context, NotificationManager mNotifyManager, NotificationCompat.Builder builder, int id, String filename) {
         builder.setContentTitle(context.getResources().getString(R.string.download_file) + filename)
                 .setContentText(context.getResources().getString(R.string.downloading))
                 .setOngoing(true)
@@ -236,16 +234,16 @@ public class DownloadService extends IntentService {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    private static void notify2(Context context, NotificationManager mNotifyManager, Notification.Builder builder, int id, int total, int downloaded) {
+    private static void notify2(Context context, NotificationManager mNotifyManager, NotificationCompat.Builder builder, int id, int total, int downloaded) {
         builder.setProgress(total, downloaded, false);
         mNotifyManager.notify(TAG, id, builder.build());
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private static void notify2(Context context, NotificationManager mNotifyManager, Notification.Builder builder, int id, DownloadService.State state) {
+    private static void notify2(Context context, NotificationManager mNotifyManager, NotificationCompat.Builder builder, int id, DownloadService.State state) {
         notify2(context, mNotifyManager, builder, id, state, null);
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private static void notify2(Context context, NotificationManager mNotifyManager, Notification.Builder builder, int id, DownloadService.State state, PendingIntent pendingIntent) {
+    private static void notify2(Context context, NotificationManager mNotifyManager, NotificationCompat.Builder builder, int id, DownloadService.State state, PendingIntent pendingIntent) {
         switch (state) {
             case Finished:
                 builder.setContentText(context.getResources().getString(R.string.download_complete));
