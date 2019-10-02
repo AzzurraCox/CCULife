@@ -3,7 +3,6 @@ package org.zankio.cculife.services;
 import android.annotation.TargetApi;
 import android.app.IntentService;
 import android.app.NotificationChannel;
-import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -46,7 +45,6 @@ public class DownloadService extends IntentService {
     }
 
     private static final String NOTIFICATION_CHANNEL_ID = "CCULife";
-    private static String GROUP_KEY = "CCULife";
 
     public boolean checkSSL() {
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(this);
@@ -134,13 +132,9 @@ public class DownloadService extends IntentService {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "CCULife", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationChannelGroup notificationChannelGroup = new NotificationChannelGroup(NOTIFICATION_CHANNEL_ID, "CCULife");
             mNotifyManager.createNotificationChannel(notificationChannel);
-            mNotifyManager.createNotificationChannelGroup(notificationChannelGroup);
         }
         mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-        mBuilder.setGroup("CCULife")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         DownloadService.notify(this, mNotifyManager, mBuilder, currentId, filename);
 
         try {
