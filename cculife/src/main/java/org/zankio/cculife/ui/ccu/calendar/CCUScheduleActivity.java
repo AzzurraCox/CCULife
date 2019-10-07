@@ -1,7 +1,6 @@
 package org.zankio.cculife.ui.ccu.calendar;
 
 import android.os.Bundle;
-import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -9,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import org.zankio.cculife.CCUSchedule;
 import org.zankio.cculife.R;

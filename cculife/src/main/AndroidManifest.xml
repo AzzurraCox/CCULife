@@ -1,7 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
     package="org.zankio.cculife">
+
+    <uses-sdk tools:overrideLibrary="androidx.browser.customtabs" />
 
     <uses-feature
         android:name="android.hardware.touchscreen"
@@ -11,7 +14,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-sdk tools:overrideLibrary="androidx.browser.customtabs"/>
+
+    <dist:module dist:instant="true" />
 
     <application
         android:name=".CCULifeApplication"
@@ -19,9 +23,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/NewAppTheme">
+        <activity android:name=".ui.ccu.calendar.CCUScheduleActivityNew"></activity>
         <activity
             android:name=".ui.LoginActivity"
-            android:windowSoftInputMode="adjustResize|stateVisible"/>
+            android:windowSoftInputMode="adjustResize|stateVisible" />
         <activity android:name=".ui.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,30 +40,32 @@
             android:label="@string/title_activity_course" />
         <activity
             android:name=".ui.course.schedule.CourseTimeTableActivity"
-            android:label="@string/title_activity_course_schedule"/>
+            android:label="@string/title_activity_course_schedule" />
         <activity
             android:name=".ui.score.ScoreQueryActivity"
-            android:label="@string/title_activity_score"/>
+            android:label="@string/title_activity_score" />
         <activity
             android:name=".ui.ccu.calendar.CCUScheduleActivity"
-            android:label="@string/title_activity_ccuschedule"/>
+            android:label="@string/title_activity_ccuschedule" />
         <activity
             android:name=".ui.SettingsActivity"
-            android:label="@string/title_activity_settings"/>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".ui.UpdateUI"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppDialog"/>
+            android:theme="@style/AppDialog" />
         <activity
             android:name=".ui.AboutActivity"
             android:label="@string/title_activity_about">
             <intent-filter>
                 <action android:name="org.zankio.cculife.ui.AboutActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.transport.TransportActivity"
-            android:label="@string/transport"/>
+        <activity
+            android:name=".ui.transport.TransportActivity"
+            android:label="@string/transport" />
 
         <service
             android:name=".services.DownloadService"
@@ -69,6 +76,7 @@
         <service
             android:name=".services.CheckUpdateService"
             android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -76,12 +84,12 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3dae68a28052d10a443a222bd0582019fb8f0947" />
     </application>
-    <dist:module dist:instant="true" />
+
 </manifest>
