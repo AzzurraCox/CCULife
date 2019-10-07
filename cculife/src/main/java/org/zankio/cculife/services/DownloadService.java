@@ -161,8 +161,8 @@ public class DownloadService extends IntentService {
                 .setSmallIcon(getNotificationIcon());
         builder.setColor(ContextCompat.getColor(context, R.color.accent));
         builder.setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), PendingIntent.FLAG_CANCEL_CURRENT));
-       // mNotifyManager.notify(TAG, id, builder.build());
-        mNotifyManager.notify(0,builder.build());
+        mNotifyManager.notify(TAG, id, builder.build());
+        //mNotifyManager.notify(0,builder.build());
     }
 
     private static void notify(Context context, NotificationManager mNotifyManager, NotificationCompat.Builder builder, int id, int total, int downloaded) {
