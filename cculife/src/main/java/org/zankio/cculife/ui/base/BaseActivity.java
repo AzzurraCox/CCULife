@@ -59,11 +59,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @NonNull
     @Override
-    public androidx.appcompat.app.ActionBar getSupportActionBar() {
+    public ActionBar getSupportActionBar() {
         if (!toolbarInited) initToolbar();
         ActionBar actionBar = super.getSupportActionBar();
 
-        if (actionBar == null) throw new RuntimeException("initial Toolbar fail");
+        //if (actionBar == null) throw new RuntimeException("initial Toolbar fail");
         return actionBar;
     }
 
