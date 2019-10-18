@@ -131,7 +131,7 @@ public class DownloadService extends IntentService {
         mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "CCULife", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "CCULife", NotificationManager.IMPORTANCE_HIGH);
             mNotifyManager.createNotificationChannel(notificationChannel);
         }
         mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
@@ -162,7 +162,6 @@ public class DownloadService extends IntentService {
         builder.setColor(ContextCompat.getColor(context, R.color.accent));
         builder.setContentIntent(PendingIntent.getActivity(context, 0, new Intent(), PendingIntent.FLAG_CANCEL_CURRENT));
         mNotifyManager.notify(TAG, id, builder.build());
-        //mNotifyManager.notify(0,builder.build());
     }
 
     private static void notify(Context context, NotificationManager mNotifyManager, NotificationCompat.Builder builder, int id, int total, int downloaded) {
