@@ -11,8 +11,10 @@ import org.zankio.ccudata.base.model.OkHttpResponse;
 import org.zankio.ccudata.base.model.Request;
 import org.zankio.ccudata.base.source.FetchParseSource;
 import org.zankio.ccudata.base.source.http.annotation.Charset;
+import org.zankio.ccudata.base.utils.SslUtils;
 
 import java.io.IOException;
+import java.net.ProtocolException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +51,7 @@ public abstract class HTTPSource<TArgument, TData> extends FetchParseSource<TArg
         OkHttpClient client = makeClient(parameter, httpRequest, cookieJar);
 
         try {
+            SslUtils.ignoreSsl();
             return new OkHttpResponse(
                     client.newCall(httpRequest).execute(),
                     getCharset()
@@ -77,6 +80,18 @@ public abstract class HTTPSource<TArgument, TData> extends FetchParseSource<TArg
                 .connectionSpecs(Arrays.asList(spec.COMPATIBLE_TLS));
 
         String host = httpRequest.url().host();
+        try {
+
+                SslUtils.ignoreSsl();
+
+        }catch (ProtocolException e) {
+            e.printStackTrace();
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (HTTPSource.sslSocketFactory.get(host) != null && HTTPSource.trustManager.get(host) != null)
             builder.sslSocketFactory(HTTPSource.sslSocketFactory.get(host), HTTPSource.trustManager.get(host));
 
