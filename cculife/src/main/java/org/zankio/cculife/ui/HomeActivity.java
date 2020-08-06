@@ -17,7 +17,7 @@ import org.zankio.cculife.UserManager;
 import org.zankio.cculife.ui.base.BaseActivity;
 import org.zankio.cculife.ui.ccu.calendar.CCUScheduleActivity;
 import org.zankio.cculife.ui.course.schedule.CourseTimeTableActivity;
-import org.zankio.cculife.ui.ecourse.CourseActivity;
+import org.zankio.cculife.ui.map.MapActivity;
 import org.zankio.cculife.ui.score.ScoreQueryActivity;
 import org.zankio.cculife.ui.transport.TransportActivity;
 
@@ -31,7 +31,8 @@ public class HomeActivity extends BaseActivity {
 
     private void initMenu() {
         ccuServices = new CCUService[]{
-                new CCUService(CourseActivity.class, getString(R.string.ecourse), R.drawable.ecourse, true)
+                //new CCUService(CourseActivity.class, getString(R.string.ecourse), R.drawable.ecourse, true)
+                new CCUService(MapActivity.class, getString(R.string.map), R.drawable.map)
                 , new CCUService(CourseTimeTableActivity.class, getString(R.string.timetable), R.drawable.timetable, true)
                 , new CCUService(ScoreQueryActivity.class, getString(R.string.score_query), R.drawable.score, true)
                 , new CCUService(CCUScheduleActivity.class, getString(R.string.schedule), R.drawable.ccuschedule)

@@ -5,6 +5,7 @@
     <string name="course">Course</string>
     <string name="setting">設定</string>
     <string name="classmate">修課同學</string>
+    <string name="map">地圖</string>
 
     <string name="title_activity_home">@string/app_name</string>
     <string name="title_activity_ecourse">@string/ecourse</string>
@@ -24,6 +25,7 @@
     <string name="title_activity_score">Score</string>
 
     <string name="title_activity_ccuschedule">CCUSchedule</string>
+    <string name="title_activity_ccumap">CCUMap</string>
     <string name="title_activity_about">About</string>
 
     <string name="open_in_browser">在瀏覽器中開啟</string>
