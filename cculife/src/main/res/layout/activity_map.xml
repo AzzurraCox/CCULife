@@ -11,10 +11,10 @@ tools:context=".ui.map.MapActivity">
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <ImageView
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:srcCompat="@drawable/ccu_map" />
 
 </LinearLayout>
