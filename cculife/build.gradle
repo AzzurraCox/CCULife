@@ -58,4 +58,6 @@ dependencies {
 
     implementation 'org.apache.commons:commons-lang3:3.9'
     implementation project(path: ':ccudata')
+
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 }
